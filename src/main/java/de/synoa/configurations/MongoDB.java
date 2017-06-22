@@ -1,14 +1,14 @@
 package de.synoa.configurations;
 
-import java.util.Collections;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-import com.mongodb.MongoClient;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
+//import java.util.Collections;
+//
+//import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
+//
+//import com.mongodb.MongoClient;
+//import com.mongodb.MongoCredential;
+//import com.mongodb.ServerAddress;
 
 //@Configuration
 public class MongoDB {
