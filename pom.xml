@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>de.synoa</groupId>
+		<artifactId>genisys</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<groupId>de.synoa</groupId>
+	<artifactId>genisys.helloworld</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<name>genisys.helloworld</name>
+
+	<url>https://synoa.de/</url>
+
+	<properties>
+		<spring.boot.version>1.5.0.RELEASE</spring.boot.version>
+		<camel.version>2.19.0</camel.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Manage Spring-Boot and Camel -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring.boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-spring-boot-dependencies</artifactId>
+				<version>${camel.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-parent</artifactId>
+				<version>${camel.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+
+		<!-- Spring-boot -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+        <!-- Comment this if you need an embedded Tomcat -->
+			<artifactId>spring-boot-starter</artifactId>
+        <!-- Uncomment this if you need an embedded Tomcat -->
+        <!-- <artifactId>spring-boot-starter-web</artifactId> -->
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-spring-boot-starter</artifactId>
+		</dependency>
+
+		<!-- Camel -->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-core</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-mongodb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-camel</artifactId>
+        </dependency>
+
+		<!-- Dependencies for Tests -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+
+			<!-- Allows the routes to be run via 'mvn spring-boot:run' -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring.boot.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>de.synoa.App</mainClass>
+					<!-- Uncomment if you want to replace the application.properties -->
+					<!--<arguments>&#45;&#45;spring.config.location=${basedir}/development.properties</arguments>-->
+				</configuration>
+			</plugin>
+
+			<!-- Build the Docker Image -->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>build-image</id>
+						<phase>package</phase>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<imageName>synoa/${project.groupId}.${project.artifactId}</imageName>
+					<imageTags>
+						<imageTag>${project.version}</imageTag>
+						<!-- Uncomment the following line if you want the image to be tagged as latest -->
+						<!-- <imageTag>latest</imageTag> -->
+					</imageTags>
+					<baseImage>openjdk:8-jre-alpine</baseImage>
+					<!-- copy the service's jar file from target into the root directory
+						of the image -->
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+					<entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>
