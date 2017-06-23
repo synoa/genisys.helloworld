@@ -19,6 +19,7 @@ public class GettingStartedRouteBuilder extends RouteBuilder {
             .log("${body}")
             .to("mongodb:mongoBean?database={{mongodb.database}}&operation=getDbStats")
             .log("${body}")
+            .to("activemq:{{activemq.queue.prefix}}mongodb")
         ;
 
         // @formatter:on
