@@ -1,4 +1,4 @@
-package de.synoa.configurations;
+package de.synoa.genisys.helloworld.configurations;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.camel.component.ActiveMQComponent;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import de.synoa.App;
+import de.synoa.genisys.helloworld.App;
 
 @Configuration
 public class ActiveMQ {
@@ -16,13 +16,7 @@ public class ActiveMQ {
     private static final String QUEUE_BASE = "activemq:{{activemq.queue.prefix}}.";
 
     private static final String TOPIC_BASE = "activemq:topic:{{activemq.queue.prefix}}.";
-    
-    // TODO CHANGE ME!!
-    public static final String NICE_QUEUE = QUEUE_BASE + "nice.queue";
-    
-    // TODO CHANGE ME!!
-    public static final String SUPER_TOPIC = TOPIC_BASE + "super.topic";
-    
+
     @Bean(name = "pooledConnectionFactory", initMethod = "start", destroyMethod = "stop")
     public PooledConnectionFactory createActiveMQConnectionPool(@Value("${activemq.url}") String brokerURL) {
 

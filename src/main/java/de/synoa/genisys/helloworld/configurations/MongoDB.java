@@ -1,4 +1,4 @@
-package de.synoa.configurations;
+package de.synoa.genisys.helloworld.configurations;
 
 import java.util.Collections;
 

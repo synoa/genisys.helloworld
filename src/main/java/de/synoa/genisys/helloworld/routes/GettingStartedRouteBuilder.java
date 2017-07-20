@@ -1,4 +1,4 @@
-package de.synoa.routes;
+package de.synoa.genisys.helloworld.routes;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
@@ -11,7 +11,7 @@ public class GettingStartedRouteBuilder extends RouteBuilder {
         // @formatter:off
 
         from("timer:helloworld?period=5000").routeId("Hello World Route")
-            .setBody(simple("{{genisys.greeting}}"))
+            .setBody(constant("Hello Microservice World"))
             .to("activemq:{{activemq.queue.prefix}}talk")
         ;
 
@@ -19,7 +19,6 @@ public class GettingStartedRouteBuilder extends RouteBuilder {
             .log("${body}")
             .to("mongodb:mongoBean?database={{mongodb.database}}&operation=getDbStats")
             .log("${body}")
-            .to("activemq:{{activemq.queue.prefix}}mongodb")
         ;
 
         // @formatter:on

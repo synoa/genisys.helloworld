@@ -5,7 +5,6 @@ services:
     activemq:
         container_name: synoa_activemq
         image: webcenter/activemq:5.14.3
-        restart: always
         volumes:
             - ".data/activemq:/data/activemq"
         ports:
@@ -18,8 +17,7 @@ services:
 
     mongodb:
         container_name: synoa_mongodb
-        image: mongo:3.4.1
-        restart: always
+        image: mongo:3.4
         volumes:
             - ".data/mongodb:/data/db"
         ports:
