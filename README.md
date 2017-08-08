@@ -1,17 +1,13 @@
-# Run
+# de.synoa.genisys.helloworld
 
-```
-# Start docker container (ActiveMQ & MongoDB)
-docker-compose up
+@TODO: Describe your service.
 
-# Start the service
-mvn sprint-boot:run
-```
 
-# Build
+## JIRA
 
-Create a docker image:
+@TODO: Add all associated issues from JIRA.
 
-```
-mvn package
-```
+
+## Confluence
+
+@TODO: Add all associated pages from Confluence.
