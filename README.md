@@ -1,4 +1,5 @@
 # de.synoa.genisys.helloworld
+!["Travis Build Status"](https://api.travis-ci.org/synoa/genisys.helloworld.svg?branch=master)
 
 @TODO: Describe your service.
 
