@@ -67,21 +67,6 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-mongodb3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-camel</artifactId>
-        </dependency>
-
-        <!-- Database Migration -->
-        <dependency>
-            <groupId>com.github.mongobee</groupId>
-            <artifactId>mongobee</artifactId>
-            <version>${mongobee.version}</version>
-        </dependency>
 
         <!-- Dependencies for Tests -->
         <dependency>
@@ -145,25 +130,6 @@
                         <includeOnlyProperty>^git.build.version$</includeOnlyProperty>
                     </includeOnlyProperties>
                 </configuration>
-            </plugin>
-
-            <!-- Build the Docker Image -->
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>${spotify.dockerfile.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>default</id>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                        <configuration>
-                            <repository>synoa/${project.groupId}.${project.artifactId}</repository>
-                            <tag>latest</tag>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
 
         </plugins>
