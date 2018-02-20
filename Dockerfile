@@ -15,11 +15,6 @@ RUN echo "Europe/Berlin" > /etc/timezone
 RUN apk del tzdata
 RUN rm -rf /var/cache/apk/*
 
-# Add the Script and the Properties File for Git Version Information
-ADD version.sh /
-RUN chmod +x /version.sh
-ADD target/git.properties /
-
 # Add the compiled Jar and the default Properties
 ADD target/helloworld.jar /
 ADD application.properties /

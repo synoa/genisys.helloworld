@@ -110,28 +110,6 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-                <version>${git.commit.id.version}</version>
-                <executions>
-                    <execution>
-                        <id>get-the-git-infos</id>
-                        <goals>
-                            <goal>revision</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
-                    <generateGitPropertiesFilename>${project.build.directory}/git.properties</generateGitPropertiesFilename>
-                    <includeOnlyProperties>
-                        <includeOnlyProperty>^git.commit.id$</includeOnlyProperty>
-                        <includeOnlyProperty>^git.build.version$</includeOnlyProperty>
-                    </includeOnlyProperties>
-                </configuration>
-            </plugin>
-
         </plugins>
     </build>
 
