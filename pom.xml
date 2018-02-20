@@ -6,16 +6,18 @@
 
     <groupId>de.synoa.genisys</groupId>
     <artifactId>helloworld</artifactId>
-    <version>1.0.5</version>
+    <version>1.0-SNAPSHOT</version>
     <name>helloworld</name>
 
     <url>https://synoa.de/</url>
 
     <properties>
-        <maven.compiler.plugin.version>3.6.1</maven.compiler.plugin.version>
-        <spotify.dockerfile.plugin.version>1.3.4</spotify.dockerfile.plugin.version>
-        <spring.boot.version>1.5.4.RELEASE</spring.boot.version>
-        <camel.version>2.19.1</camel.version>
+        <maven.compiler.plugin.version>3.7.0</maven.compiler.plugin.version>
+        <spotify.dockerfile.plugin.version>1.3.6</spotify.dockerfile.plugin.version>
+        <spring.boot.version>1.5.7.RELEASE</spring.boot.version>
+        <camel.version>2.20.0</camel.version>
+        <git.commit.id.version>2.2.1</git.commit.id.version>
+        <mongobee.version>0.13</mongobee.version>
     </properties>
 
     <dependencyManagement>
@@ -67,11 +69,18 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-mongodb</artifactId>
+            <artifactId>camel-mongodb3</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-camel</artifactId>
+        </dependency>
+
+        <!-- Database Migration -->
+        <dependency>
+            <groupId>com.github.mongobee</groupId>
+            <artifactId>mongobee</artifactId>
+            <version>${mongobee.version}</version>
         </dependency>
 
         <!-- Dependencies for Tests -->
@@ -113,6 +122,28 @@
                     <!-- Uncomment if you want to replace the application.properties -->
                     <!-- You also have to update the Dockerfile if you add your own *.properties -->
                     <!--<arguments>&#45;&#45;spring.config.location=${basedir}/development.properties</arguments>-->
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>${git.commit.id.version}</version>
+                <executions>
+                    <execution>
+                        <id>get-the-git-infos</id>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <generateGitPropertiesFilename>${project.build.directory}/git.properties</generateGitPropertiesFilename>
+                    <includeOnlyProperties>
+                        <includeOnlyProperty>^git.commit.id$</includeOnlyProperty>
+                        <includeOnlyProperty>^git.build.version$</includeOnlyProperty>
+                    </includeOnlyProperties>
                 </configuration>
             </plugin>
 

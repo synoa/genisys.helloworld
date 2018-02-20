@@ -1,30 +1,34 @@
 package de.synoa.genisys.helloworld.configurations;
 
-import java.util.Collections;
-
+import com.github.mongobee.Mongobee;
+import com.mongodb.MongoClient;
+import org.apache.camel.component.mongodb3.MongoDbOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
-
 @Configuration
 public class MongoDB {
 
-    @Bean(name = "mongoBean")
-    public MongoClient createMongoClient(@Value("${mongodb.host}") String host, @Value("${mongodb.port}") int port,
-            @Value("${mongodb.user}") String user, @Value("${mongodb.database}") String database,
-            @Value("${mongodb.password}") String password) {
+    @Autowired
+    private MongoClient mongoClient;
 
-        if (user == null || user.isEmpty()) {
-            return new MongoClient(host, port);
-        }
+    private static final String MONGODB_BASE = "mongodb3:mongo?database={{spring.data.mongodb.database}}";
+    public static final String MONGODB_DB_STATS = MONGODB_BASE + "&operation=" + MongoDbOperation.getDbStats;
 
-        ServerAddress address = new ServerAddress(host, port);
-        MongoCredential credential = MongoCredential.createCredential(user, database, password.toCharArray());
-        return new MongoClient(address, Collections.singletonList(credential));
+    @Bean
+    public Mongobee mongobee(@Value("${spring.data.mongodb.database}") String database) {
+
+        Mongobee runner = new Mongobee(mongoClient);
+        runner.setDbName(database);
+        // the package to be scanned for changesets
+        runner.setChangeLogsScanPackage("de.synoa.genisys.helloworld.changelogs");
+        // collection with applied change sets
+        runner.setChangelogCollectionName("helloworld.changelog");
+        // collection used during migration process
+        runner.setLockCollectionName("helloworld.lock");
+
+        return runner;
     }
-
 }
