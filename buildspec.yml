@@ -22,3 +22,4 @@ phases:
 artifacts:
   files:
     - target/helloworld.jar
+    - ecs.json
