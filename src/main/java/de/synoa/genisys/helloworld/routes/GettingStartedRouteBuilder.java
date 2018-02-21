@@ -11,7 +11,7 @@ public class GettingStartedRouteBuilder extends RouteBuilder {
         // @formatter:off
 
         from("timer:helloworld?period=5000").routeId("Hello World Route")
-            .setBody(constant("WE FORKING ROCK SUPER HARD!"))
+            .setBody(constant("WE ROCK SUPER HARD!"))
             .log("${body}")
         ;
 
