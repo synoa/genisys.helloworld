@@ -1,6 +1,6 @@
 [
   {
-    "name": "genisys-helloworld-container",
+    "name": "genisys-helloworld-big",
     "imageUri": "271957595017.dkr.ecr.eu-central-1.amazonaws.com/synoa/genisys.helloworld:latest"
   }
 ]
