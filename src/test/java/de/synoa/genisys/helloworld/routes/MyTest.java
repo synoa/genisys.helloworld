@@ -11,10 +11,10 @@ public class MyTest {
         Assert.assertTrue(true);
     }
 
-    @Test
-    public void badTest () {
-        Assert.assertTrue(false);
-    }
+//    @Test
+//    public void badTest () {
+//        Assert.assertTrue(false);
+//    }
 
 
 }
